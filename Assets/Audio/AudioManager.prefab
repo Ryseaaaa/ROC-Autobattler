@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &399409900138079626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 399409900138079624}
+  - component: {fileID: 399409900138079625}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &399409900138079624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399409900138079626}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 361.8858, y: 275.3812, z: -1.9846073}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &399409900138079625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399409900138079626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fbb781fc49c9784e84e20ffa47f7674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 4d4de5518e1822c42a763fbff8c09781, type: 2}
+  Sounds:
+  - Name: MenuButton
+    Clip: {fileID: 8300000, guid: 0b386ba67c8f3e244a5169fb78ed9209, type: 3}
+    Volume: 1
+    Pitch: 1
+    MixerGroup: 0
+    loop: 0
+    Source: {fileID: 0}
+  - Name: MenuMusic
+    Clip: {fileID: 8300000, guid: 6d6c03e530c13f84884e78f0abbd48a5, type: 3}
+    Volume: 0.127
+    Pitch: 1.0594
+    MixerGroup: 1
+    loop: 1
+    Source: {fileID: 0}
+  - Name: MainMusic
+    Clip: {fileID: 8300000, guid: dcb3006c35941574881a5fb45c4bfa1f, type: 3}
+    Volume: 0.124
+    Pitch: 1
+    MixerGroup: 1
+    loop: 1
+    Source: {fileID: 0}
+  - Name: Gravity
+    Clip: {fileID: 8300000, guid: 75f260407ef7a254ab6cbd07ccf1eaef, type: 3}
+    Volume: 0.3
+    Pitch: 0.65
+    MixerGroup: 0
+    loop: 0
+    Source: {fileID: 0}
+  - Name: ArmsAreHeavy
+    Clip: {fileID: 8300000, guid: ef32d7ba503f0a94990f6e3f30ddc61d, type: 3}
+    Volume: 0.3
+    Pitch: 0.8
+    MixerGroup: 0
+    loop: 0
+    Source: {fileID: 0}
+  - Name: Explosion
+    Clip: {fileID: 8300000, guid: 906d30907bd1a364985a8297f5738191, type: 3}
+    Volume: 0.3
+    Pitch: 0.8
+    MixerGroup: 0
+    loop: 0
+    Source: {fileID: 0}
