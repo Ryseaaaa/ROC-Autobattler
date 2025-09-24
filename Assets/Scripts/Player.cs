@@ -159,8 +159,8 @@ public class Player
         {
             toDraw = DrawPile.Count;
         }
-
-        else if (DrawPile.Count < toDraw)
+        
+        if (DrawPile.Count < toDraw)
         {
             Debug.Log("Not enough in draw pile");
 
@@ -173,13 +173,16 @@ public class Player
             Debug.Log("Moves in hand is now " + Hand.Count);
             Debug.Log("Reset Pile and drawing " + toDraw + " more moves");
             Debug.Log("Drawpile size = " + DrawPile.Count);
-        }
-
-
+        } 
+        
         for (int i = 0; i < toDraw; i++)
         {
             DrawPile.MoveTo(0, Hand);
         }
+        
+
+
+        
         
         Debug.Log("Moves in hand is now " + Hand.Count);
 

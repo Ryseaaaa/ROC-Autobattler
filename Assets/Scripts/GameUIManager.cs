@@ -20,11 +20,10 @@ public class GameUIManager : MonoBehaviour
 
     public void EnterGame()
     {
-        /* RESET HAND AND DRAWS
-         * HERE
+        UnselectAll();
         GameManager.Instance.Player.Hand.Clear();
         GameManager.Instance.Player.ResetDrawPile();
-        GameManager.Instance.Player.Draw();*/
+        GameManager.Instance.Player.Draw();
         battleUI.SetActive(true);
         choiceUI.SetActive(false);
     }
@@ -327,11 +326,11 @@ public class GameUIManager : MonoBehaviour
                 {
                     case "MaxHp":
                         _ = gameManager.Player.MaxHp;
-                        gameManager.Player.MaxHp = Mathf.CeilToInt(gameManager.Player.MaxHp * upgrade(statUpgradeAmount));
+                        gameManager.Player.MaxHp = Mathf.CeilToInt(gameManager.Player.MaxHp + upgrade(statUpgradeAmount));
                         gameManager.Player.CurHp += gameManager.Player.MaxHp - _;
                         break;
                     case "HpRegen":
-                        gameManager.Player.HpRegen = Mathf.CeilToInt(gameManager.Player.HpRegen * upgrade(statUpgradeAmount));
+                        gameManager.Player.HpRegen = Mathf.CeilToInt(gameManager.Player.HpRegen + upgrade(statUpgradeAmount));
                         break;
                     case "CritChance":
                         gameManager.Player.CritChance = Math.Max(100,gameManager.Player.CritChance + statUpgradeAmount);

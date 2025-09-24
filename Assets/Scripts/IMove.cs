@@ -27,7 +27,7 @@ public abstract class Move
 
     public virtual void OnPlay(HandContext context)
     {
-        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance*0.01f, context.GameManager.Player.Luck);
+        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance*0.01f, context.GameManager.Player.Luck*0.01f);
         int calculatedDamage = BaseDamage * (isCrit ? 2 : 1);
         context.GameManager.DealDamage(calculatedDamage);
         GameUIManager.Instance.PopupAtMove(calculatedDamage + " damage" + (isCrit ? "" : "!"), context.CardPlaceInHand, isCrit);
@@ -56,7 +56,7 @@ public class BasicAttack : Move
 
     public override void OnPlay(HandContext context)
     {
-        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck);
+        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck * 0.01f);
         int calculatedDamage = BaseDamage * (isCrit ? 2 : 1);
         context.GameManager.DealDamage(calculatedDamage);
         GameUIManager.Instance.PopupAtMove(calculatedDamage + " damage" + (isCrit ? "" : "!"), context.CardPlaceInHand, isCrit);
@@ -78,8 +78,8 @@ public class DiceRoll : Move
     public override string Title { get { return "Dice Roll"; } }
     public override void OnPlay(HandContext context)
     {
-        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck);        
-        int calculatedDamage = HelperFunctions.ReturnRandomIntInRange(0, BaseDamage, (context.GameManager.Player.Luck) * (isCrit ? 1 + context.GameManager.Player.CritChance*0.01f : 1));
+        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck * 0.01f);        
+        int calculatedDamage = HelperFunctions.ReturnRandomIntInRange(0, BaseDamage + 1, (context.GameManager.Player.Luck) * (isCrit ? 1 + context.GameManager.Player.CritChance*0.01f : 1) * 0.01f);
 
         string maxRollText = "";
         if(calculatedDamage == BaseDamage)
@@ -115,7 +115,7 @@ public class BloodleachMove : Move
     public override string Title { get { return "Bloodleach"; } }
     public override void OnPlay(HandContext context)
     {
-        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck);
+        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck * 0.01f);
         int calculatedDamage = BaseDamage * 2;
         int calculatedHeal = BaseDamage * (isCrit ? 1 : 2);
         context.GameManager.DealDamage(calculatedDamage);
@@ -124,7 +124,7 @@ public class BloodleachMove : Move
     }
     public override void OnDiscard(HandContext context)
     {
-        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck);
+        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck * 0.01f);
         int calculatedHeal = isCrit ? 1 : BaseDamage;
         context.GameManager.Player.Heal(calculatedHeal);
         GameUIManager.Instance.PopupAtMove("Healed " + calculatedHeal + (isCrit ? "" : "!"), context.CardPlaceInHand, isCrit);
