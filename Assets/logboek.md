@@ -43,6 +43,21 @@
 
 ## Do 25 sep 2025
 
-- AOJGFEAjikgfh musiz fix
-- fix daamge not working
-- implement dodge chance
+- Bug gefixed waarbij enemy soms geen damage doet
+- Dodge chance functioneel gemaakt
+- Bug gefixed waarbij music sliders in options niet meer werkte
+
+## Wo 08 oct 2025
+
+- Bug gefixed waarbij buttons in main menu niet meer werkte
+- Bug gefixed waarbij main menu buttons geen geluid meer maken
+- Opnieuw bug gefixed waarbij music sliders niet meer werkte
+- Text popup prefab gemaakt
+
+## Do 09 oct 2025
+
+- Text popup voor wanneer je een attack dodged
+- Animatie en sound effect wanneer je een attack dodged
+- Round scaling functie aangepast
+
+- Win condition gemaakt wanneer je bij round 15 komt en scene gemaakt voor final cutscene

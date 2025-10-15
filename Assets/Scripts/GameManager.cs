@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     public void PlayHand()
     {
         Player.Play();
-        Player.CurHp = MathF.Max(Player.MaxHp, Player.CurHp + Player.HpRegen);
+        Player.CurHp = MathF.Min(Player.MaxHp, Player.CurHp + Player.HpRegen);
         if (EnemyHealth <= 0)
         {
             Round++;
@@ -89,23 +89,30 @@ public class GameManager : MonoBehaviour
             enterRest();
         }else
         {
-            Player.TakeDamage(EnemyDamage);
+            if (HelperFunctions.ReturnRandomIntInRange(0, 101, Player.Luck * 0.01f) > Player.DodgeChance)
+            {
+                Player.TakeDamage(EnemyDamage);
+            }
+            else
+            {
+                gameUIManager.Miss();
+            }
         }
     }
-    public void DiscardHand()
+    public void DiscardHand()   
     {
         Player.Discard();
     }
 
     public void DealDamage(float damage)
     {
-        EnemyHealth -= damage;
+        Enemy   Health -= damage;
     }
 
     
     private void resetEnemy()
     {
-        EnemyMaxHealth = Mathf.Floor(20 + 3 * Round + Mathf.Pow(1.05f,Round) * (1 + 0.1f * Round));
+        EnemyMaxHealth += Round;
         EnemyHealth = EnemyMaxHealth;
         EnemyDamage = Mathf.Floor(Round * (1 + Round * 0.05f));
         gameUIManager.UpdateEnemy();

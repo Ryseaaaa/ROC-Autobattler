@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using TMPro;
 using Unity.Mathematics;
@@ -232,10 +233,12 @@ public class GameUIManager : MonoBehaviour
 
 
 
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private GameObject mnmPrefab;
+    [SerializeField] private GameObject bananaPrefab;
+    [SerializeField] private GameObject textPrefab;
     public void Gravity()
     {
-        GameObject mnm = Instantiate(prefab);
+        GameObject mnm = Instantiate(mnmPrefab);
         if (GameManager.Instance.audioManager != null) {
             if (HelperFunctions.ReturnRandomBool(0.5f, 0))
             {
@@ -247,6 +250,17 @@ public class GameUIManager : MonoBehaviour
                 GameManager.Instance.audioManager.PlaySound("ArmsAreHeavy");
             }
         }
+    }
+    public void Miss()
+    {
+        GameObject banana = Instantiate(bananaPrefab); 
+        GameObject textpopupobject = Instantiate(textPrefab, gameObject.transform.Find("BattleUI").transform);
+        textpopupobject.transform.Translate(-440f, 160f, 0f);
+        TextPopup textpopup = textpopupobject.GetComponent<TextPopup>();
+        textpopup.Text = "Dodged!";
+        textpopup.Lifespan = 3f;
+        textpopup.Color = Color.yellow;
+        GameManager.Instance.audioManager.PlaySound("Miss");
     }
 
     private string statUpgrade;

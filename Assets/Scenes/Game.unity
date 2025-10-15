@@ -289,10 +289,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 0}
   audioManagerPrefab: {fileID: 399409900138079626, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-  Round: 0
-  EnemyMaxHealth: 0
-  EnemyHealth: 0
-  EnemyDamage: 0
+  Round: 1
+  EnemyMaxHealth: 20
+  EnemyHealth: 20
+  EnemyDamage: 1
 --- !u!4 &487796809
 Transform:
   m_ObjectHideFlags: 0
@@ -1757,7 +1757,9 @@ MonoBehaviour:
   movePrefab: {fileID: 1031536375630528069, guid: d2813d98f49f2d9418a7fae803b7e382, type: 3}
   SelectedColor: {r: 0.42207187, g: 0.7749609, b: 0.9056604, a: 1}
   UnselectedColor: {r: 0.5188679, g: 0.496351, b: 0.496351, a: 1}
-  prefab: {fileID: 9223337942805976109, guid: 701dfd51a9051e94fa1a6e1bfe08c4ab, type: 3}
+  mnmPrefab: {fileID: 9223337942805976109, guid: c6b7218cf1d4d754ba7af727ac40fd5d, type: 3}
+  bananaPrefab: {fileID: 9223337942805976109, guid: 701dfd51a9051e94fa1a6e1bfe08c4ab, type: 3}
+  textPrefab: {fileID: 5470522515711670470, guid: bc8d7cdf088c07842a0475435679a3c2, type: 3}
 --- !u!1 &1239381033
 GameObject:
   m_ObjectHideFlags: 0
