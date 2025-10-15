@@ -80,6 +80,7 @@ public class GameUIManager : MonoBehaviour
 
 
 
+    // Selects a single card
     public bool SelectCard(int index)
     {
 
@@ -96,6 +97,7 @@ public class GameUIManager : MonoBehaviour
 
     }
 
+    //Unselects all moves
     public void UnselectAll()
     {
         for (int i = 0; i < moves.Length; i++)
@@ -107,6 +109,7 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    // Plays the currently selected moves, if possible
     public void PlayHand()
     {
         if(gameManager.Player.Selected.Count != 0)
@@ -125,6 +128,8 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+
+    // Makes the moves buttons that can be clicked to select them
     public void SetMovesInHand(List<Move> _hand)
     {
         /*if ((lastHandSize != gameManager.Player.MaxHandSize || moves == null) || true) //case handsize changed
@@ -194,19 +199,24 @@ public class GameUIManager : MonoBehaviour
 
 
 
-
+    // Update enemy's displayed stats
     public void UpdateEnemy()
     {
         enemyHealth.GetComponent<TextMeshProUGUI>().SetText("Health: " + gameManager.EnemyHealth + "/" + gameManager.EnemyMaxHealth);
         enemyDamage.GetComponent<TextMeshProUGUI>().SetText("Damage: " + gameManager.EnemyDamage);
     }
 
+
+    //Makes a text popup whenever a move is played
     public void PopupAtMove(string text, int movePos, bool isCrit)
     {
+
         Debug.Log("Move popup with text: " + text);
         Debug.Log("Pos: " + movePos + " & Crit: " + isCrit.ToString());
     }
 
+
+    // Updates a single displayed stat
     public void UpdateStat(string _name, string _newvalue)
     {
         foreach (GameObject stat in stats)
@@ -221,7 +231,7 @@ public class GameUIManager : MonoBehaviour
 
     }
 
-    public void UpdateAllStats()
+    public void UpdateAllStats() //Updates all the displayed Stats
     {
         UpdateStat("Hp", gameManager.Player.CurHp + "/" + gameManager.Player.MaxHp);
         UpdateStat("HpRegen", gameManager.Player.HpRegen.ToString());
@@ -236,6 +246,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GameObject mnmPrefab;
     [SerializeField] private GameObject bananaPrefab;
     [SerializeField] private GameObject textPrefab;
+    // Enemy animation when enemy hits you
     public void Gravity()
     {
         GameObject mnm = Instantiate(mnmPrefab);
@@ -251,6 +262,7 @@ public class GameUIManager : MonoBehaviour
             }
         }
     }
+    // Enemy animation when enemy misses you
     public void Miss()
     {
         GameObject banana = Instantiate(bananaPrefab); 
@@ -328,12 +340,12 @@ public class GameUIManager : MonoBehaviour
     }
     public void TakeUpgrade(int index)
     {
-        switch(index)
+        switch(index) //Switch statement for determining what player chose
         {
-            case 0:
+            case 0: // If player chooses to add move, add move
                 gameManager.Player.Moves.Add(moveToAdd); 
                 break;
-            case 1:
+            case 1: // If player takes upgrade, update accordingly
                 Func<int, float> upgrade = x => 1 + x * 0.01f; 
                 int _ = 0;
                 switch (statUpgrade)
@@ -361,7 +373,7 @@ public class GameUIManager : MonoBehaviour
                 }
                 UpdateAllStats();
                 break;
-            case 2:
+            case 2: // If player chooses to remove move, remove it, making sure to reset the drawpile too to avoid bugs.
                 if (gameManager.Player.Hand.Contains(moveToRemove))
                 {
                     gameManager.Player.Hand.Remove(moveToRemove);
@@ -375,6 +387,7 @@ public class GameUIManager : MonoBehaviour
                 
             break;
         }
+        // After taking an upgrade, enter the battle again
         EnterGame();
     }
 }

@@ -60,4 +60,12 @@
 - Animatie en sound effect wanneer je een attack dodged
 - Round scaling functie aangepast
 
+## Wo 15 oct 2025
+
+- Comments toegevoegd
+- Logboek verplaatst naar nieuwe folder met andere opdrachten
+- Ontwikkelomgeving bestand toegevoegd
+
+## ?? ?? ??? ????
+
 - Win condition gemaakt wanneer je bij round 15 komt en scene gemaakt voor final cutscene

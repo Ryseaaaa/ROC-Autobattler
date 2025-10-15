@@ -1,0 +1,16 @@
+Laptop Model: Asus ROG Strix G15 G513IH-HN026T
+Besturingssysteem: Windows 10 Home 22H2
+
+Processor:	AMD Ryzen 7 4800H with Radeon Graphics            2.90 GHz
+Installed RAM:	16.0 GB (15.4 GB usable)
+Storage:	954 GB SSD HFM001TD3JX013N
+Graphics Card:	NVIDIA GeForce GTX 1650 (4 GB), AMD Radeon(TM) Graphics (496 MB)
+Device ID:	E79E0437-28DC-4A16-B38A-77F69B489CF0
+Product ID:	00325-82123-67210-AAOEM
+System Type:	64-bit operating system, x64-based processor
+
+
+Lijst van gebruikte software:
+	Unity 2021.3.25f1			Game Engine
+	FL Studio 24 All Plugins Edition	Muziek en SFX
+	paint.net 5.1.9				Sprites

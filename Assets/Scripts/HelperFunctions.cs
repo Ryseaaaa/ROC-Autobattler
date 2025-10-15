@@ -25,6 +25,13 @@ public static class HelperFunctions
         }
         return (_rollValue > (1.0f - _baseSuccessChance));
     }
+    /// <summary>
+    /// Returns a random float according to a base chance and luck
+    /// </summary>
+    /// <param name="_min">Min <u>Min Inclusive</u></param>
+    /// <param name="_max">Max <u>Max Inclusive</u></param>
+    /// <param name="_luck">Every 1 <paramref name="_luck"/> adds 1 reroll to get closer to <paramref name="_max"/></param>
+    /// <returns></returns>
     public static float ReturnRandomFloatInRange(float _min, float _max, float _luck)
     {
         int _rolls = 1 + Mathf.FloorToInt(_luck);
@@ -42,7 +49,7 @@ public static class HelperFunctions
     }
 
     /// <summary>
-    /// 
+    /// Returns a random int according to a base chance and luck
     /// </summary>
     /// <param name="_min">Min <u>Inclusive</u></param>
     /// <param name="_max">Max <u>Exclusive</u></param>
@@ -64,6 +71,11 @@ public static class HelperFunctions
         return _rollValue;
     }
 
+    /// <summary>
+    /// Shuffles a list
+    /// </summary>
+    /// <typeparam name="T">List Type</typeparam>
+    /// <param name="list">The list to be shuffled</param>
     public static void Shuffle<T>(this List<T> list)
     {
         int n = list.Count;

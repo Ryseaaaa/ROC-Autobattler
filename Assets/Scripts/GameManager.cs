@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //setup audio
+        //If there is no audio manager, make one
         var _ = FindObjectOfType<AudioManager>();
         if( _ == null)
         {
@@ -51,8 +51,6 @@ public class GameManager : MonoBehaviour
         {
             audioManager = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         }
-        
-        Debug.Log(audioManager);
         audioManager.PlayMusic("MainMusic");
         
 
@@ -62,6 +60,7 @@ public class GameManager : MonoBehaviour
         Player.Moves = new List<Move> {
         };
 
+        //set starting moves
         Player.Moves = new List<Move>();
         for(int i = 0; i < 10; i++)
         {
@@ -82,13 +81,13 @@ public class GameManager : MonoBehaviour
     {
         Player.Play();
         Player.CurHp = MathF.Min(Player.MaxHp, Player.CurHp + Player.HpRegen);
-        if (EnemyHealth <= 0)
+        if (EnemyHealth <= 0) // If enemy dead, go to next round
         {
             Round++;
             resetEnemy();
             enterRest();
         }else
-        {
+        {   // Else, either dodge attack or take damage 
             if (HelperFunctions.ReturnRandomIntInRange(0, 101, Player.Luck * 0.01f) > Player.DodgeChance)
             {
                 Player.TakeDamage(EnemyDamage);
@@ -106,25 +105,26 @@ public class GameManager : MonoBehaviour
 
     public void DealDamage(float damage)
     {
-        Enemy   Health -= damage;
+        EnemyHealth -= damage;
     }
 
     
-    private void resetEnemy()
+    private void resetEnemy() //Increase Round and enemy Stats
     {
-        EnemyMaxHealth += Round;
+        EnemyMaxHealth += Round; 
         EnemyHealth = EnemyMaxHealth;
         EnemyDamage = Mathf.Floor(Round * (1 + Round * 0.05f));
         gameUIManager.UpdateEnemy();
     }
 
-    public void Die()
+    public void Die() // Game Over
     {
         audioManager.PlaySound("Explosion");
         audioManager.MusicFilter(false);
         SceneManager.LoadScene("GameOver");
     }
 
+    // Enter "Rest" where you can pick a reward before the next round
     private void enterRest()
     {
         audioManager.PlaySound("Explosion");
