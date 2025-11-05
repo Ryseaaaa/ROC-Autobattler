@@ -66,6 +66,20 @@
 - Logboek verplaatst naar nieuwe folder met andere opdrachten
 - Ontwikkelomgeving bestand toegevoegd
 
+## Di 28 oct 2025
+
+- Meer bugfixing voor card drawing
+- Bugfixing voor card selecting (Soms is er een desync tussen visuals en interne selections)
+
+## Do 30 oct 2025
+
+- Nog meer bugfixing voor card drawing
+- Feedback aan mevrouw Jacobs (Jesse) gevraagd. Mevrouw Jacobs wilt op het kiesscherm dat er een reroll optie is, om meer keuze te krijgen voor rewards. Ze wilt ook dat er een animatie is als de speler met de muis over een knopje gaat.
+
+## Wo 5 nov 2025
+
+- Reroll button volledig geïmplementeerd
+
 ## ?? ?? ??? ????
 
 - Win condition gemaakt wanneer je bij round 15 komt en scene gemaakt voor final cutscene

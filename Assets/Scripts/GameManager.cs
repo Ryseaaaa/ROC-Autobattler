@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
     public float EnemyHealth = 20;
     public float EnemyDamage = 1;
 
+    [SerializeField] private int initialMoveCount = 10;
+
     void Start()
     {
         //If there is no audio manager, make one
@@ -57,12 +59,11 @@ public class GameManager : MonoBehaviour
 
         //setup player
         Player.gameManager = Instance;
-        Player.Moves = new List<Move> {
-        };
+        Player.Moves = new List<Move>{};
 
         //set starting moves
         Player.Moves = new List<Move>();
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < initialMoveCount; i++)
         {
             Player.Moves.Add(new BasicAttack());
         }
@@ -124,7 +125,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
 
-    // Enter "Rest" where you can pick a reward before the next round
+    // Enter "Rest" where you can pick a reward before the next rounds
     private void enterRest()
     {
         audioManager.PlaySound("Explosion");

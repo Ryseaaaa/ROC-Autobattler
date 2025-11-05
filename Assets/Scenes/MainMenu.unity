@@ -2481,42 +2481,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 399409900138079625, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-      propertyPath: Sounds.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 399409900138079625, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-      propertyPath: Sounds.Array.data[6].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7e2e813e79b867c47be311ba6a4f45dc, type: 3}
-    - target: {fileID: 399409900138079625, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-      propertyPath: Sounds.Array.data[6].Name
-      value: Miss
-      objectReference: {fileID: 0}
-    - target: {fileID: 399409900138079625, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-      propertyPath: Sounds.Array.data[6].Pitch
-      value: 1.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 399409900138079625, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-      propertyPath: Sounds.Array.data[2].Volume
-      value: 0.148
-      objectReference: {fileID: 0}
-    - target: {fileID: 399409900138079625, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-      propertyPath: Sounds.Array.data[3].Volume
-      value: 0.513
-      objectReference: {fileID: 0}
-    - target: {fileID: 399409900138079625, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-      propertyPath: Sounds.Array.data[4].Volume
-      value: 0.513
-      objectReference: {fileID: 0}
-    - target: {fileID: 399409900138079625, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-      propertyPath: Sounds.Array.data[5].Volume
-      value: 0.523
-      objectReference: {fileID: 0}
-    - target: {fileID: 399409900138079625, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
-      propertyPath: Sounds.Array.data[6].Volume
-      value: 0.523
-      objectReference: {fileID: 0}
     - target: {fileID: 399409900138079626, guid: 69b309ccd7bfbd94bad116fc574d95e7, type: 3}
       propertyPath: m_Name
       value: AudioManager

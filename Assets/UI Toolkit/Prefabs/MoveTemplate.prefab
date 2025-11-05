@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4871424808936846061}
   - component: {fileID: 793433020667016875}
   - component: {fileID: 8132137206524137624}
-  - component: {fileID: -3655068223829595628}
   m_Layer: 5
   m_Name: MoveTemplate
   m_TagString: Untagged
@@ -136,18 +135,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-3655068223829595628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031536375630528069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f86c5f08d3cb80448a094a1f386d1e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1062214114771769358
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,9 +14,6 @@ public class Player
     public int MaxSelectedSize = 3;
 
     public int Discards = 3;
-    
-
-
 
     public int CritChance = 10;
     public int DodgeChance = 0;
@@ -43,34 +40,26 @@ public class Player
     /// /// <summary>
     /// Moves that are currently selected
     /// </summary>
-    public List<Move> Selected = new();
+    public Dictionary<int, Move> Selected = new();
     
     /// <summary>
     /// Moves that have been discarded or played
     /// </summary>
     public List<Move> DiscardPile = new();
-    
-
-    
-
 
     public bool Select(int moveIndex)
     {
-        Debug.Log("Selected Move Index = " + moveIndex);
-        Debug.Log("Hand has " + Hand.Count + " items"); 
-        //hand doesnt have same size??
-        if (Selected.Contains(Hand[moveIndex]))
+        if (Selected.ContainsKey(moveIndex))
         {
-            Selected.Remove(Hand[moveIndex]);
+            Selected.Remove(moveIndex);
             return false;
         }
         else if (Selected.Count < MaxSelectedSize)
         {
-            Selected.Add(Hand[moveIndex]);
+            Selected.Add(moveIndex, Hand[moveIndex]);
             return true;
         }
         return false;
-        
     }
 
     public void TakeDamage(float _damage) 
@@ -92,7 +81,7 @@ public class Player
     public void Play()
     {
         List<Move> playedMoves = new List<Move>();
-        foreach (Move move in Selected)
+        foreach (Move move in Selected.Values)
         {
             playedMoves.Add(move);
             
@@ -108,19 +97,18 @@ public class Player
             _moveIndex++;
 
         }
-        if(DrawPile.Count == 0 && Hand.Count == 0)
+        if(DrawPile.Count == 0 && Hand.Count < MaxHandSize)
         {
             ResetDrawPile();
         }
         Draw();
-        Debug.Log("Move pile size is now " + Moves.Count);
     }
     public void Discard()
     {
         if(Discards > 0) 
         {
             List<Move> discardedMoves = new List<Move>();
-            foreach (Move move in Selected)
+            foreach (Move move in Selected.Values)
             {
                 discardedMoves.Add(move);
             }
@@ -137,7 +125,6 @@ public class Player
 
     public void ResetDrawPile()
     {
-        Debug.Log("Moves list has " + Moves.Count + " moves");
         foreach ( Move move in Moves)
         {
             DrawPile.Add(move);
@@ -147,14 +134,11 @@ public class Player
             DrawPile.Remove(move);
         }
         DrawPile.Shuffle();
-        Debug.Log("Moves list has " + Moves.Count + " moves");
-        Debug.Log("Reset draw pile, now has " + DrawPile.Count + " moves");
     }
 
     public void Draw()
     {
         int toDraw = MaxHandSize - Hand.Count;
-        Debug.Log("Attempting to draw " + toDraw + " moves");
         if (Moves.Count < toDraw)
         {
             toDraw = DrawPile.Count;
@@ -162,29 +146,19 @@ public class Player
         
         if (DrawPile.Count < toDraw)
         {
-            Debug.Log("Not enough in draw pile");
-
             for (int i = 0; i < DrawPile.Count; i++)
             {
                 DrawPile.MoveTo(0, Hand);
             }
             ResetDrawPile();
-            toDraw = DrawPile.Count;
-            Debug.Log("Moves in hand is now " + Hand.Count);
-            Debug.Log("Reset Pile and drawing " + toDraw + " more moves");
-            Debug.Log("Drawpile size = " + DrawPile.Count);
+            toDraw = Math.Min(MaxHandSize - Hand.Count, DrawPile.Count);
         } 
+        
         
         for (int i = 0; i < toDraw; i++)
         {
             DrawPile.MoveTo(0, Hand);
         }
-        
-
-
-        
-        
-        Debug.Log("Moves in hand is now " + Hand.Count);
 
         GameUIManager.Instance.SetMovesInHand(Hand);
     }

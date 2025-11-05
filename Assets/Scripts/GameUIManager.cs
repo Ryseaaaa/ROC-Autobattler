@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Linq.Expressions;
 using TMPro;
 using Unity.Mathematics;
@@ -17,7 +18,15 @@ public class GameUIManager : MonoBehaviour
     [SerializeField]
     private GameObject choiceUI;
     [SerializeField]
+    private GameObject rerollButton;
+    [SerializeField]
     private List<GameObject> stats;
+    
+
+    [SerializeField]
+    private Color SelectedColor;
+    [SerializeField]
+    private Color UnselectedColor;
 
     public void EnterGame()
     {
@@ -31,7 +40,10 @@ public class GameUIManager : MonoBehaviour
 
     public void EnterRest()
     {
+        rerolls = maxRerolls;
         SetUpgrades();
+        rerollButton.GetComponent<Image>().color = Color.white;
+        rerollButton.GetComponentInChildren<TextMeshProUGUI>().text = "Reroll! (" + rerolls + "/" + maxRerolls + ")";
         battleUI.SetActive(false);
         choiceUI.SetActive(true);
     }
@@ -49,7 +61,6 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-
     private GameManager gameManager
     {
         get { return GameManager.Instance; }
@@ -66,12 +77,6 @@ public class GameUIManager : MonoBehaviour
     [SerializeField]
     private GameObject movePrefab;
     private GameObject[] moves;
-    private int lastHandSize = 0;
-
-    [SerializeField]
-    private Color SelectedColor;
-    [SerializeField]
-    private Color UnselectedColor;
 
     void Start()
     {
@@ -81,42 +86,43 @@ public class GameUIManager : MonoBehaviour
 
 
     // Selects a single card
-    public bool SelectCard(int index)
+    public void SelectCard(int index)
     {
-
         if (gameManager.Player.Select(index))
-        {
             moves[index].gameObject.GetComponent<Image>().color = SelectedColor;
-            return true;
-        }
-        else
-        {
-            moves[index].gameObject.GetComponent<Image>().color = UnselectedColor;
-            return false;
-        }
 
+        else moves[index].gameObject.GetComponent<Image>().color = UnselectedColor;
     }
 
-    //Unselects all moves
+    // Check if move is selected
+    public bool isSelected(int index)
+    {
+        if (gameManager.Player.Selected.ContainsKey(index))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // Unselects all moves
     public void UnselectAll()
     {
         for (int i = 0; i < moves.Length; i++)
         {
-            if (SelectCard(i))
+            if (isSelected(i))
             {
                 SelectCard(i);
             }
         }
     }
 
-    // Plays the currently selected moves, if possible
+    // Plays the currently selected moves, if possible (Called by button)
     public void PlayHand()
     {
         if(gameManager.Player.Selected.Count != 0)
         {
             gameManager.PlayHand();
             UpdateEnemy();
-            UnselectAll();
         }
     }
     public void DiscardHand()
@@ -140,11 +146,6 @@ public class GameUIManager : MonoBehaviour
             {
                 Destroy(move);
             }
-        }
-        lastHandSize = gameManager.Player.MaxHandSize;
-        if (lastHandSize != _hand.Count)
-        {
-            Debug.Log("Hand size (player stat) doesnt match hand size (moves in hand)????");
         }
 
         //create new moves
@@ -197,8 +198,6 @@ public class GameUIManager : MonoBehaviour
     */
 
 
-
-
     // Update enemy's displayed stats
     public void UpdateEnemy()
     {
@@ -211,8 +210,8 @@ public class GameUIManager : MonoBehaviour
     public void PopupAtMove(string text, int movePos, bool isCrit)
     {
 
-        Debug.Log("Move popup with text: " + text);
-        Debug.Log("Pos: " + movePos + " & Crit: " + isCrit.ToString());
+        // Debug.Log("Move popup with text: " + text);
+        // Debug.Log("Pos: " + movePos + " & Crit: " + isCrit.ToString());
     }
 
 
@@ -280,7 +279,9 @@ public class GameUIManager : MonoBehaviour
     private int statUpgradeAmount = 0;
 
     private Move moveToAdd = new BasicAttack();
-    private Move moveToRemove = null;
+    private Move moveToRemove;
+
+    // Sets upgrade options
     public void SetUpgrades()
     {
         //Determine stats to select from
@@ -338,6 +339,27 @@ public class GameUIManager : MonoBehaviour
         moveToRemove = GameManager.Instance.Player.Moves[UnityEngine.Random.Range(0, GameManager.Instance.Player.Moves.Count)];
         choiceUI.transform.Find("Choice3").transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = "Remove " + moveToRemove.Title;
     }
+
+    private int maxRerolls = 3;
+    private int rerolls = 3;
+
+    // Rerolls your upgrade options
+    public void RerollUpgrades()
+    {
+        if (rerolls > 0) {
+            rerolls--;
+            rerollButton.GetComponentInChildren<TextMeshProUGUI>().text = "Reroll! (" + rerolls + "/" + maxRerolls+")";
+            SetUpgrades();
+            
+            
+        }
+        if(rerolls<= 0)
+        {
+            rerollButton.GetComponent<Image>().color = Color.gray;
+        }
+    }
+    
+    // On the buttons to take the upgradeas
     public void TakeUpgrade(int index)
     {
         switch(index) //Switch statement for determining what player chose

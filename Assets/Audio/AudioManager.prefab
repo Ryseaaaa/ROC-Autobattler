@@ -62,29 +62,36 @@ MonoBehaviour:
     Source: {fileID: 0}
   - Name: MainMusic
     Clip: {fileID: 8300000, guid: dcb3006c35941574881a5fb45c4bfa1f, type: 3}
-    Volume: 0.124
+    Volume: 0.148
     Pitch: 1
     MixerGroup: 1
     loop: 1
     Source: {fileID: 0}
   - Name: Gravity
     Clip: {fileID: 8300000, guid: 75f260407ef7a254ab6cbd07ccf1eaef, type: 3}
-    Volume: 0.3
+    Volume: 0.513
     Pitch: 0.65
     MixerGroup: 0
     loop: 0
     Source: {fileID: 0}
   - Name: ArmsAreHeavy
     Clip: {fileID: 8300000, guid: ef32d7ba503f0a94990f6e3f30ddc61d, type: 3}
-    Volume: 0.3
+    Volume: 0.513
     Pitch: 0.8
     MixerGroup: 0
     loop: 0
     Source: {fileID: 0}
   - Name: Explosion
     Clip: {fileID: 8300000, guid: 906d30907bd1a364985a8297f5738191, type: 3}
-    Volume: 0.3
+    Volume: 0.523
     Pitch: 0.8
+    MixerGroup: 0
+    loop: 0
+    Source: {fileID: 0}
+  - Name: Miss
+    Clip: {fileID: 8300000, guid: 7e2e813e79b867c47be311ba6a4f45dc, type: 3}
+    Volume: 0.523
+    Pitch: 1.12
     MixerGroup: 0
     loop: 0
     Source: {fileID: 0}
