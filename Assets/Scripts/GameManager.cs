@@ -84,9 +84,7 @@ public class GameManager : MonoBehaviour
         Player.CurHp = MathF.Min(Player.MaxHp, Player.CurHp + Player.HpRegen);
         if (EnemyHealth <= 0) // If enemy dead, go to next round
         {
-            Round++;
-            resetEnemy();
-            enterRest();
+            WinRound();
         }else
         {   // Else, either dodge attack or take damage 
             if (HelperFunctions.ReturnRandomIntInRange(0, 101, Player.Luck * 0.01f) > Player.DodgeChance)
@@ -109,6 +107,20 @@ public class GameManager : MonoBehaviour
         EnemyHealth -= damage;
     }
 
+    public void WinRound()
+    {
+        Round++;
+        resetEnemy();
+        enterRest();
+        if (Round > 15)
+        {
+            WinGame();
+        }
+    }
+    public void WinGame()
+    {
+
+    }
     
     private void resetEnemy() //Increase Round and enemy Stats
     {
