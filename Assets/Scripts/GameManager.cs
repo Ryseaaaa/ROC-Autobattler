@@ -110,16 +110,16 @@ public class GameManager : MonoBehaviour
     public void WinRound()
     {
         Round++;
-        resetEnemy();
-        enterRest();
-        if (Round > 15)
+        if (Round > 2)
         {
             WinGame();
         }
+        resetEnemy();
+        enterRest();
     }
     public void WinGame()
     {
-
+        SceneManager.LoadScene("Victory");
     }
     
     private void resetEnemy() //Increase Round and enemy Stats

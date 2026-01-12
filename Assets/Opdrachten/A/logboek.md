@@ -80,6 +80,6 @@
 
 - Reroll button volledig geïmplementeerd
 
-## ?? ?? ??? ????
+## Ma 12 jan 2026
 
 - Win condition gemaakt wanneer je bij round 15 komt en scene gemaakt voor final cutscene

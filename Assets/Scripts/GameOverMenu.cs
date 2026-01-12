@@ -1,25 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
+    private AudioManager audioManager;
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager == null)
+        {
+            Debug.Log("Couldnt find audio manager");
+        }
+    }
     public void RestartGame()
     {
-        FindObjectOfType<AudioManager>().MusicFilter(true);
+        if (audioManager != null)
+        {
+            audioManager.MusicFilter(true);
+        }
         SceneManager.LoadScene("Game");
     }
     public void MainMenu()
     {
-        FindObjectOfType<AudioManager>().MusicFilter(true);
-        FindObjectOfType<AudioManager>().PlayMusic("MenuMusic");
+        if (audioManager != null)
+        {
+            audioManager.MusicFilter(true);
+            audioManager.PlayMusic("MenuMusic");
+        }
         SceneManager.LoadScene("MainMenu");
     }
 
     public void ExitGame()
     {
         Debug.Log("Quit");
+
+        #if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+        #else
         Application.Quit();
+        #endif
     }
 }
