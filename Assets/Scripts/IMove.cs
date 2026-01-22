@@ -70,8 +70,29 @@ public class BasicAttack : Move
 }
 #endregion
 
-#region DiceRoll Move
-public class DiceRoll : Move
+#region
+public class StrongAttack : Move
+{
+    public override int BaseDamage { get { return 10; } set { } }
+    public override string Title { get { return "Strong Attack"; } }
+    public override void OnPlay(HandContext context)
+    {
+        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck * 0.01f);
+        int calculatedDamage = BaseDamage * (isCrit ? 2 : 1);
+        context.GameManager.DealDamage(calculatedDamage);
+        GameUIManager.Instance.PopupAtMove(calculatedDamage + " damage" + (isCrit ? "" : "!"), context.CardPlaceInHand, isCrit);
+    }
+    public override DisplayText GetDisplayText()
+    {
+        DisplayText text = new();
+        text.AddText("Deals " + BaseDamage + " Damage");
+        return text;
+    }
+}
+    #endregion
+
+    #region DiceRoll Move
+    public class DiceRoll : Move
 {
     private int baseDamage = 3;
     public override int BaseDamage { get { return baseDamage; } set { baseDamage = value; } }
@@ -135,8 +156,6 @@ public class BloodleachMove : Move
         text.AddText("Deals " + 2 * BaseDamage + " damage");
         text.NewLine();
         text.AddText("Heals " + BaseDamage + " hp, or 2x on crit");
-        text.NewLine();
-        text.AddText("On discard heals 1, or " + BaseDamage + " on crit");
 
         return text;
     }

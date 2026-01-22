@@ -83,3 +83,10 @@
 ## Ma 12 jan 2026
 
 - Win condition gemaakt wanneer je bij round 15 komt en scene gemaakt voor final cutscene
+
+## Do 22 jan 2026
+
+- User stories gemaakt
+- Code leesbaarder gemaakt
+- Strong attack toegevoegd en basic attack weggehaald uit reward screen moves pool
+- Testscenario's uitgevoerd met Celeste.

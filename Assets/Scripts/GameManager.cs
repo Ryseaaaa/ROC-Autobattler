@@ -9,7 +9,25 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    private GameUIManager gameUIManager;
+
+    public Player Player = new();
+
+    public int Round = 1;
+    public int WinningRound = 15;
+    public float EnemyMaxHealth = 20;
+    public float EnemyHealth = 20;
+    public float EnemyDamage = 1;
+
+    [SerializeField] private int initialMoveCount = 10;
+
+    [SerializeField] private GameObject audioManagerPrefab;
+    public AudioManager audioManager;
+
     private static GameManager _instance;
+
+    // Singleton
     public static GameManager Instance
     {
         get
@@ -22,23 +40,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
-
-    public AudioManager audioManager;
-    [SerializeField]
-    private GameObject audioManagerPrefab;
-
-    private GameUIManager gameUIManager;
-    
-    public Player Player = new();
-
-    public int Round = 1;
-    public float EnemyMaxHealth = 20;
-    public float EnemyHealth = 20;
-    public float EnemyDamage = 1;
-
-    [SerializeField] private int initialMoveCount = 10;
 
     void Start()
     {
@@ -97,11 +98,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    public void DiscardHand()   
-    {
-        Player.Discard();
-    }
 
+
+    // Method when dealing damage to the enemy
     public void DealDamage(float damage)
     {
         EnemyHealth -= damage;
@@ -110,7 +109,7 @@ public class GameManager : MonoBehaviour
     public void WinRound()
     {
         Round++;
-        if (Round > 2)
+        if (Round > WinningRound)
         {
             WinGame();
         }

@@ -125,14 +125,6 @@ public class GameUIManager : MonoBehaviour
             UpdateEnemy();
         }
     }
-    public void DiscardHand()
-    {
-        if(gameManager.Player.Discards > 0 && gameManager.Player.Selected.Count > 0)
-        {
-            gameManager.DiscardHand();
-            UnselectAll();
-        }
-    }
 
 
     // Makes the moves buttons that can be clicked to select them
@@ -302,7 +294,7 @@ public class GameUIManager : MonoBehaviour
         switch (i)
         {
             case 0:
-                moveToAdd = new BasicAttack();
+                moveToAdd = new StrongAttack();
                 break;
             case 1:
                 moveToAdd = new DiceRoll();
