@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public Player Player = new();
 
     public int Round = 1;
-    public int WinningRound = 15;
+    public int WinningRound = 10;
     public float EnemyMaxHealth = 20;
     public float EnemyHealth = 20;
     public float EnemyDamage = 1;
@@ -113,8 +113,12 @@ public class GameManager : MonoBehaviour
         {
             WinGame();
         }
-        resetEnemy();
-        enterRest();
+        else {
+            GameUIManager.Instance.UpdateRound(Round, WinningRound);
+            resetEnemy();
+            enterRest();
+        }
+        
     }
     public void WinGame()
     {

@@ -21,6 +21,8 @@ public class GameUIManager : MonoBehaviour
     private GameObject rerollButton;
     [SerializeField]
     private List<GameObject> stats;
+    [SerializeField]
+    private GameObject RoundNumber;
     
 
     [SerializeField]
@@ -237,10 +239,29 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GameObject mnmPrefab;
     [SerializeField] private GameObject bananaPrefab;
     [SerializeField] private GameObject textPrefab;
+    [SerializeField] private Transform eminemeny;
+
     // Enemy animation when enemy hits you
-    public void Gravity()
+    public void Gravity(float damage)
     {
-        GameObject mnm = Instantiate(mnmPrefab);
+        GameObject mnm = Instantiate(
+            mnmPrefab,
+            eminemeny.position,
+            Quaternion.identity,
+            transform.GetChild(0)
+        );
+
+        GameObject textpopupobject = Instantiate(
+            textPrefab,
+            new Vector2(mnm.transform.position.x, mnm.transform.position.y + 120f),
+            Quaternion.identity,
+            transform.GetChild(0)
+        );
+        TextPopup textpopup = textpopupobject.GetComponent<TextPopup>();
+        textpopup.Text = "Took " + damage + " damage";
+        textpopup.Lifespan = 3f;
+        textpopup.Color = Color.white;
+
         if (GameManager.Instance.audioManager != null) {
             if (HelperFunctions.ReturnRandomBool(0.5f, 0))
             {
@@ -256,9 +277,18 @@ public class GameUIManager : MonoBehaviour
     // Enemy animation when enemy misses you
     public void Miss()
     {
-        GameObject banana = Instantiate(bananaPrefab); 
-        GameObject textpopupobject = Instantiate(textPrefab, gameObject.transform.Find("BattleUI").transform);
-        textpopupobject.transform.Translate(-440f, 160f, 0f);
+        GameObject banana = Instantiate(
+            bananaPrefab,
+            eminemeny.position,
+            Quaternion.identity,
+            transform.GetChild(0)
+        );
+        GameObject textpopupobject = Instantiate(
+            textPrefab,
+            new Vector2(banana.transform.position.x, banana.transform.position.y + 120f),
+            Quaternion.identity,
+            transform.GetChild(0)
+        );
         TextPopup textpopup = textpopupobject.GetComponent<TextPopup>();
         textpopup.Text = "Dodged!";
         textpopup.Lifespan = 3f;
@@ -281,12 +311,15 @@ public class GameUIManager : MonoBehaviour
         {
             "MaxHp",
             "HpRegen",
-            "DodgeChance",
             "Luck"
         };
         if(GameManager.Instance.Player.CritChance < 100)
         {
             statsUpgradeable.Add("CritChance");
+        }
+        if(GameManager.Instance.Player.DodgeChance < 50)
+        {
+            statsUpgradeable.Add("DodgeChance");
         }
         
         // Add Move
@@ -309,17 +342,23 @@ public class GameUIManager : MonoBehaviour
         choiceUI.transform.Find("Choice1").transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = "Add " + moveToAdd.Title;
 
         // Upgrade Stat
-        statUpgrade = statsUpgradeable[HelperFunctions.ReturnRandomIntInRange(0, statsUpgradeable.Count - 1,0)];
+        statUpgrade = statsUpgradeable[HelperFunctions.ReturnRandomIntInRange(0, statsUpgradeable.Count,0)];
         statUpgradeAmount = HelperFunctions.ReturnRandomIntInRange(10, 20 + gameManager.Player.Luck, 0);
         switch (statUpgrade)
         {
             case "CritChance":
             case "DodgeChance":
-                statUpgradeAmount /= 5;
+                statUpgradeAmount /= 2;
                 choiceUI.transform.Find("Choice2").transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade " + statUpgrade + " by " + statUpgradeAmount + "%";
                 break;
             case "Luck":
                 statUpgradeAmount /= 2;
+                choiceUI.transform.Find("Choice2").transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade " + statUpgrade + " by " + statUpgradeAmount;
+                break;
+            case "HpRegen":
+                Debug.Log("Upgrade landed on HpRegen. Initial amount = " + statUpgradeAmount);
+                statUpgradeAmount /= 4;
+                Debug.Log("After division = " + statUpgradeAmount);
                 choiceUI.transform.Find("Choice2").transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade " + statUpgrade + " by " + statUpgradeAmount;
                 break;
             default:
@@ -354,7 +393,7 @@ public class GameUIManager : MonoBehaviour
     // On the buttons to take the upgradeas
     public void TakeUpgrade(int index)
     {
-        switch(index) //Switch statement for determining what player chose
+        switch(index) //Switch statement for determining what upgrade the player chose
         {
             case 0: // If player chooses to add move, add move
                 gameManager.Player.Moves.Add(moveToAdd); 
@@ -370,13 +409,15 @@ public class GameUIManager : MonoBehaviour
                         gameManager.Player.CurHp += gameManager.Player.MaxHp - _;
                         break;
                     case "HpRegen":
-                        gameManager.Player.HpRegen = Mathf.CeilToInt(gameManager.Player.HpRegen + upgrade(statUpgradeAmount));
+                        Debug.Log("Decided to take hp regen. Cur amt = " + statUpgradeAmount);
+                        Debug.Log("Player amt = " + gameManager.Player.HpRegen);
+                        gameManager.Player.HpRegen = Mathf.CeilToInt(gameManager.Player.HpRegen + statUpgradeAmount);
                         break;
                     case "CritChance":
-                        gameManager.Player.CritChance = Math.Max(100,gameManager.Player.CritChance + statUpgradeAmount);
+                        gameManager.Player.CritChance = Math.Min(100,gameManager.Player.CritChance + statUpgradeAmount);
                         break;
                     case "DodgeChance":
-                        gameManager.Player.DodgeChance = Mathf.Max(50,Mathf.CeilToInt(gameManager.Player.DodgeChance + statUpgradeAmount));
+                        gameManager.Player.DodgeChance = Mathf.Min(50,Mathf.CeilToInt(gameManager.Player.DodgeChance + statUpgradeAmount));
                         break;
                     case "Luck":
                         gameManager.Player.Luck = Mathf.CeilToInt(gameManager.Player.Luck + statUpgradeAmount);
@@ -403,5 +444,9 @@ public class GameUIManager : MonoBehaviour
         }
         // After taking an upgrade, enter the battle again
         EnterGame();
+    }
+    public void UpdateRound(int curRound, int maxRound)
+    {
+        RoundNumber.GetComponentInChildren<TextMeshProUGUI>().text = "Round: " + curRound + "/" + maxRound;
     }
 }

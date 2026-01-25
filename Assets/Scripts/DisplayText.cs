@@ -38,7 +38,7 @@ public class DisplayText
     }
     public void NewLine()
     {
-
+        text += "\n";
     }
 
     public override string ToString()

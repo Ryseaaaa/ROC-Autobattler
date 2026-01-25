@@ -99,7 +99,7 @@ public class StrongAttack : Move
     public override string Title { get { return "Dice Roll"; } }
     public override void OnPlay(HandContext context)
     {
-        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck * 0.01f);        
+        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck * 0.03f);        
         int calculatedDamage = HelperFunctions.ReturnRandomIntInRange(0, BaseDamage + 1, (context.GameManager.Player.Luck) * (isCrit ? 1 + context.GameManager.Player.CritChance*0.01f : 1) * 0.01f);
 
         string maxRollText = "";

@@ -66,7 +66,7 @@ public class Player
     {
         CurHp -= _damage;
         GameUIManager.Instance.UpdateStat("Hp",CurHp + "/" + MaxHp);
-        GameUIManager.Instance.Gravity();
+        GameUIManager.Instance.Gravity(_damage);
         if(CurHp <= 0) 
         {
             gameManager.Die();

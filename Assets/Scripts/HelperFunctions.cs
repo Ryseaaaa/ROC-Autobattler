@@ -55,7 +55,7 @@ public static class HelperFunctions
     /// <param name="_max">Max <u>Exclusive</u></param>
     /// <param name="_luck">Every 1 <paramref name="_luck"/> adds 1 reroll to get closer to <paramref name="_max"/></param>
     /// <returns></returns>
-    public static int ReturnRandomIntInRange(int _min, int _max, float _luck)
+    public static int ReturnRandomIntInRange(int _minInclusive, int _maxExclusive, float _luck)
     {
         int _rolls = 1 + Mathf.FloorToInt(_luck);
         if (_luck % 1 > Random.Range(0f, 1f))
@@ -63,10 +63,10 @@ public static class HelperFunctions
             _rolls++;
         }
 
-        int _rollValue = _min;
+        int _rollValue = _minInclusive;
         for (int i = 0; i <= _rolls; i++)
         {
-            _rollValue = Mathf.Max(_rollValue, Random.Range(_min, _max));
+            _rollValue = Mathf.Max(_rollValue, Random.Range(_minInclusive, _maxExclusive));
         }
         return _rollValue;
     }
