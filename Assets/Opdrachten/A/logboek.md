@@ -90,3 +90,12 @@
 - Code leesbaarder gemaakt
 - Strong attack toegevoegd en basic attack weggehaald uit reward screen moves pool
 - Testscenario's uitgevoerd met Celeste.
+
+## Zo 25 jan 2026
+
+- Celeste's feedback verwerkt en geimplementeerd. Testscenario document compleet
+- Veel visuals verbeterd
+- Stats screen bugfixing gedaan. Dit gaf een andere waarde weer dan het daadwerkelijk gaf aan de speler.
+- Laatste ronde is nu 10 om het makkelijker en minder saai te maken.
+- Tekst popup gemaakt wanneer de enemy je damage geeft.
+- GDD afgemaakt.
