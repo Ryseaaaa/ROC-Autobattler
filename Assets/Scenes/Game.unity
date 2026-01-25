@@ -2382,8 +2382,8 @@ MonoBehaviour:
   - {fileID: 1830487712}
   - {fileID: 255641743}
   RoundNumber: {fileID: 1606816200}
-  SelectedColor: {r: 0.42207187, g: 0.7749609, b: 0.9056604, a: 1}
-  UnselectedColor: {r: 0.5188679, g: 0.496351, b: 0.496351, a: 1}
+  SelectedColor: {r: 0.4117647, g: 0.36862746, b: 0.31764707, a: 1}
+  UnselectedColor: {r: 0.69803923, g: 0.65882355, b: 0.60784316, a: 1}
   enemyHealth: {fileID: 859737527}
   enemyDamage: {fileID: 1843196079}
   hand: {fileID: 948524555}
