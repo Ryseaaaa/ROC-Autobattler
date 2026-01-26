@@ -3,6 +3,7 @@ using UnityEngine;
 using System.ComponentModel;
 using System;
 
+//class to store sound clips and metadata, and make them usable in the unity editor
 [System.Serializable]
 public class Sound 
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
+// functions used commonly
 public static class HelperFunctions
 {
     /// <summary>

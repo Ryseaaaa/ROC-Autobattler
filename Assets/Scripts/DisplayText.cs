@@ -3,44 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+//class for storing text that gets displayed in ui
 public class DisplayText
 {
-    public enum TextColor
-    {
-        White,
-        Fire,
-        Water,
-        Gold
-    }
-    private static string getColor(TextColor _color)
-    {
-        Color rgb;
-        switch (_color) {
-            default: rgb = Color.white;
-                break;
-        }
-        return "?c"+ColorUtility.ToHtmlStringRGB(rgb);
-    }
-
     public DisplayText()
     {
     }
 
     private string text = "";
 
+    //method to add text to displaytext
     public void AddText(string _text)
     {
         text += _text;
     }
-    public void AddText(TextColor _color, string _text)
-    {
-        text += getColor(_color) + _text;
-    }
+
+    //method to add new line to displaytext
     public void NewLine()
     {
         text += "\n";
     }
 
+
+    //method to return text as string
     public override string ToString()
     {
         return text;

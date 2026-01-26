@@ -11,46 +11,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+//Class that handels all UI
 public class GameUIManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject battleUI;
-    [SerializeField]
-    private GameObject choiceUI;
-    [SerializeField]
-    private GameObject rerollButton;
-    [SerializeField]
-    private List<GameObject> stats;
-    [SerializeField]
-    private GameObject RoundNumber;
-    
-
-    [SerializeField]
-    private Color SelectedColor;
-    [SerializeField]
-    private Color UnselectedColor;
-
-    public void EnterGame()
-    {
-        UnselectAll();
-        GameManager.Instance.Player.Hand.Clear();
-        GameManager.Instance.Player.ResetDrawPile();
-        GameManager.Instance.Player.Draw();
-        battleUI.SetActive(true);
-        choiceUI.SetActive(false);
-    }
-
-    public void EnterRest()
-    {
-        rerolls = maxRerolls;
-        SetUpgrades();
-        rerollButton.GetComponent<Image>().color = Color.white;
-        rerollButton.GetComponentInChildren<TextMeshProUGUI>().text = "Reroll! (" + rerolls + "/" + maxRerolls + ")";
-        battleUI.SetActive(false);
-        choiceUI.SetActive(true);
-    }
 
     private static GameUIManager _instance;
+    // get instance
     public static GameUIManager Instance
     {
         get
@@ -68,7 +34,16 @@ public class GameUIManager : MonoBehaviour
         get { return GameManager.Instance; }
     }
 
-
+    [SerializeField]
+    private GameObject battleUI;
+    [SerializeField]
+    private GameObject choiceUI;
+    [SerializeField]
+    private GameObject rerollButton;
+    [SerializeField]
+    private List<GameObject> stats;
+    [SerializeField]
+    private GameObject RoundNumber;
     [SerializeField]
     private GameObject enemyHealth;
     [SerializeField]
@@ -79,6 +54,39 @@ public class GameUIManager : MonoBehaviour
     [SerializeField]
     private GameObject movePrefab;
     private GameObject[] moves;
+
+
+    [SerializeField]
+    private Color SelectedColor;
+    [SerializeField]
+    private Color UnselectedColor;
+
+    //update the UI to enter the game
+    public void EnterGame()
+    {
+        UnselectAll();
+        GameManager.Instance.Player.Hand.Clear();
+        GameManager.Instance.Player.ResetDrawPile();
+        GameManager.Instance.Player.Draw();
+        battleUI.SetActive(true);
+        choiceUI.SetActive(false);
+    }
+
+    //update the UI to enter choice reward
+    public void EnterChoice()
+    {
+        rerolls = maxRerolls;
+        SetUpgrades();
+        rerollButton.GetComponent<Image>().color = Color.white;
+        rerollButton.GetComponentInChildren<TextMeshProUGUI>().text = "Reroll! (" + rerolls + "/" + maxRerolls + ")";
+        battleUI.SetActive(false);
+        choiceUI.SetActive(true);
+    }
+
+    
+
+
+
 
     void Start()
     {

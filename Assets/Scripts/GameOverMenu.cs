@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class GameOverMenu : MonoBehaviour
 {
     private AudioManager audioManager;
+
+    //find audio manager
     private void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
@@ -12,6 +14,8 @@ public class GameOverMenu : MonoBehaviour
             Debug.Log("Couldnt find audio manager");
         }
     }
+
+    //restart game button
     public void RestartGame()
     {
         if (audioManager != null)
@@ -20,6 +24,8 @@ public class GameOverMenu : MonoBehaviour
         }
         SceneManager.LoadScene("Game");
     }
+
+    //go to main menu button
     public void MainMenu()
     {
         if (audioManager != null)
@@ -30,6 +36,7 @@ public class GameOverMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    //exit game button
     public void ExitGame()
     {
         Debug.Log("Quit");

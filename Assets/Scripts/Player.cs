@@ -47,6 +47,7 @@ public class Player
     /// </summary>
     public List<Move> DiscardPile = new();
 
+    //called when move is selected
     public bool Select(int moveIndex)
     {
         if (Selected.ContainsKey(moveIndex))
@@ -62,6 +63,7 @@ public class Player
         return false;
     }
 
+    //called when player takes damage
     public void TakeDamage(float _damage) 
     {
         CurHp -= _damage;
@@ -72,12 +74,13 @@ public class Player
             gameManager.Die();
         }
     }
+    //called when player heals
     public void Heal(float _amount)
     {
         CurHp = MathF.Min(MaxHp, (CurHp + _amount));
         GameUIManager.Instance.UpdateStat("Hp", CurHp + "/" + MaxHp);
     }
-
+    //called when player plays selected moves
     public void Play()
     {
         List<Move> playedMoves = new List<Move>();
@@ -103,26 +106,8 @@ public class Player
         }
         Draw();
     }
-    public void Discard()
-    {
-        if(Discards > 0) 
-        {
-            List<Move> discardedMoves = new List<Move>();
-            foreach (Move move in Selected.Values)
-            {
-                discardedMoves.Add(move);
-            }
-            Selected.Clear();
-            int _moveIndex = 0;
-            foreach (Move move in discardedMoves)
-            {
-                move.OnDiscard(new HandContext(gameManager, _moveIndex));
-                Hand.Remove(move);
-                _moveIndex++;
-            }
-        }
-    }
 
+    // called when draw pile needs to be reset
     public void ResetDrawPile()
     {
         foreach ( Move move in Moves)
@@ -136,6 +121,7 @@ public class Player
         DrawPile.Shuffle();
     }
 
+    //called when player draws new moves
     public void Draw()
     {
         int toDraw = MaxHandSize - Hand.Count;

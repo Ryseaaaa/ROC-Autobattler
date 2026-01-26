@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//context of where in the hand the move is
 public class HandContext
 {
     public HandContext(GameManager gameManager, int cardPlaceInHand)
@@ -16,6 +17,7 @@ public class HandContext
 }
 
 #region BaseMove
+//abtract clase for move to override
 public abstract class Move
 {
     public void TakeUpgrade()
@@ -49,6 +51,7 @@ public abstract class Move
 #endregion
 
 #region BasicAttack Move
+//basic attack
 public class BasicAttack : Move
 {
     public override int BaseDamage { get { return 5; } set { } }
@@ -70,7 +73,8 @@ public class BasicAttack : Move
 }
 #endregion
 
-#region
+#region StrongAttack Move
+// strong attack
 public class StrongAttack : Move
 {
     public override int BaseDamage { get { return 10; } set { } }
@@ -91,45 +95,47 @@ public class StrongAttack : Move
 }
     #endregion
 
-    #region DiceRoll Move
-    public class DiceRoll : Move
+#region DiceRoll Move
+// DiceRoll move
+public class DiceRoll : Move
 {
-    private int baseDamage = 3;
-    public override int BaseDamage { get { return baseDamage; } set { baseDamage = value; } }
-    public override string Title { get { return "Dice Roll"; } }
-    public override void OnPlay(HandContext context)
-    {
-        bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck * 0.03f);        
-        int calculatedDamage = HelperFunctions.ReturnRandomIntInRange(0, BaseDamage + 1, (context.GameManager.Player.Luck) * (isCrit ? 1 + context.GameManager.Player.CritChance*0.01f : 1) * 0.01f);
+private int baseDamage = 3;
+public override int BaseDamage { get { return baseDamage; } set { baseDamage = value; } }
+public override string Title { get { return "Dice Roll"; } }
+public override void OnPlay(HandContext context)
+{
+    bool isCrit = HelperFunctions.ReturnRandomBool(context.GameManager.Player.CritChance * 0.01f, context.GameManager.Player.Luck * 0.03f);        
+    int calculatedDamage = HelperFunctions.ReturnRandomIntInRange(0, BaseDamage + 1, (context.GameManager.Player.Luck) * (isCrit ? 1 + context.GameManager.Player.CritChance*0.01f : 1) * 0.01f);
 
-        string maxRollText = "";
-        if(calculatedDamage == BaseDamage)
-        {
-            BaseDamage++;
-            maxRollText = " +1 max!";
-        }
-        context.GameManager.DealDamage(calculatedDamage);
-        GameUIManager.Instance.PopupAtMove(calculatedDamage + " damage" + (isCrit ? "" : "!") + maxRollText, context.CardPlaceInHand, isCrit);
+    string maxRollText = "";
+    if(calculatedDamage == BaseDamage)
+    {
+        BaseDamage++;
+        maxRollText = " +1 max!";
     }
+    context.GameManager.DealDamage(calculatedDamage);
+    GameUIManager.Instance.PopupAtMove(calculatedDamage + " damage" + (isCrit ? "" : "!") + maxRollText, context.CardPlaceInHand, isCrit);
+}
 
-    public override DisplayText GetDisplayText()
-    {
-        DisplayText text = new();
-        text.AddText("0 to " + BaseDamage + " damage");
-        text.NewLine();
-        text.AddText("+1 dmg on max roll");
-        text.NewLine();
-        text.AddText("Crits increase only luck");
+public override DisplayText GetDisplayText()
+{
+    DisplayText text = new();
+    text.AddText("0 to " + BaseDamage + " damage");
+    text.NewLine();
+    text.AddText("+1 dmg on max roll");
+    text.NewLine();
+    text.AddText("Crits increase only luck");
         
 
         
-        return text;
-    }
+    return text;
+}
 
 }
 #endregion
 
 #region Bloodleach Move
+//bloodleach move
 public class BloodleachMove : Move
 {
     public override int BaseDamage { get { return 2; } set { } }

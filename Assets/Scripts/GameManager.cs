@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     private static GameManager _instance;
 
-    // Singleton
+    // Singleton instance
     public static GameManager Instance
     {
         get
@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
         resetEnemy();
     }
 
+    //called when hand is played
     public void PlayHand()
     {
         Player.Play();
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
         EnemyHealth -= damage;
     }
 
+    //called when the enemy is defeated
     public void WinRound()
     {
         Round++;
@@ -119,11 +121,13 @@ public class GameManager : MonoBehaviour
         }
         
     }
+    //called when you win the game
     public void WinGame()
     {
         SceneManager.LoadScene("Victory");
     }
     
+ 
     private void resetEnemy() //Increase Round and enemy Stats
     {
         EnemyMaxHealth += Round; 
@@ -132,6 +136,7 @@ public class GameManager : MonoBehaviour
         gameUIManager.UpdateEnemy();
     }
 
+    //called when player dies
     public void Die() // Game Over
     {
         audioManager.PlaySound("Explosion");
@@ -143,6 +148,6 @@ public class GameManager : MonoBehaviour
     private void enterRest()
     {
         audioManager.PlaySound("Explosion");
-        GameUIManager.Instance.EnterRest();
+        GameUIManager.Instance.EnterChoice();
     }
 }

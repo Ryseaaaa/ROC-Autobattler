@@ -99,3 +99,7 @@
 - Laatste ronde is nu 10 om het makkelijker en minder saai te maken.
 - Tekst popup gemaakt wanneer de enemy je damage geeft.
 - GDD afgemaakt.
+
+## Ma 26 jan 2026
+
+- Code opgeschoont

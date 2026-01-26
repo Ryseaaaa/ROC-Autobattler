@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
 
+//class for text popup that dies out after some time
 public class TextPopup : MonoBehaviour
 {
 

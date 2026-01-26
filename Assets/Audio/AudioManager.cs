@@ -21,15 +21,22 @@ public class AudioManager : MonoBehaviour
     [SerializeField] 
     public Sound[] Sounds;
 
+    [SerializeField]
+    private readonly float cutoffTime = 0.8f;
+
     private Sound curMusic = null;
+
+    private int targetCutoff = 22000;
 
     public void Awake()
     {
+        //if theres another audiomanager, destroy self
         if(FindObjectsOfType<AudioManager>().Length >= 2)
         {
             Destroy(gameObject);
         }
-        foreach(Sound s  in Sounds)
+        //add sounds to audiomanager object as audiosource
+        foreach(Sound s in Sounds)
         {
             s.Source = gameObject.AddComponent<AudioSource>();
             s.Source.clip = s.Clip;
@@ -40,22 +47,19 @@ public class AudioManager : MonoBehaviour
             s.Source.outputAudioMixerGroup = getMixerGroup(s.MixerGroup);
 
         }
+        //play menu music on awake
         PlayMusic("MenuMusic");
         DontDestroyOnLoad(gameObject);
     }
 
-    public void Start()
-    {
-    }
-
-    private readonly float cutoffTime = 0.8f;
     public void Update()
     {
+        //set low pass filter cutoff
         mixer.GetFloat("MusicLP", out float curValue);
         mixer.SetFloat("MusicLP", Mathf.Lerp(curValue,targetCutoff,Time.deltaTime/cutoffTime));
     }
 
-
+    //gets the sound in sound array by name
     private Sound getSound(string name)
     {
         Sound sound = Array.Find(Sounds, sound => sound.Name == name);
@@ -65,13 +69,15 @@ public class AudioManager : MonoBehaviour
         }
         return sound;
     }
+
+    //plays sound
     public void PlaySound(string name)
     {
         getSound(name).Source.Play();
     }
 
     
-
+    //plays music and stops current music if it exists
     public void PlayMusic(string name)
     {
         if (!(curMusic == null))
@@ -83,25 +89,29 @@ public class AudioManager : MonoBehaviour
 
     }
 
-
+    //returns the mixergroup
     private AudioMixerGroup getMixerGroup(MixerGroups group)
     {
         return mixer.FindMatchingGroups(group.ToString())[0];
     }
-    private int targetCutoff = 22000;
+
+    //sets the music filter on or off
     public void MusicFilter(bool toggle)
     {
         targetCutoff = toggle ? 22000 : 500;
     }
 
+    // sets the volume of the sound mixer channel
     public void SetSoundsVolume(System.Single volume)
     {
         mixer.SetFloat("SoundsVol", volume);
     }
+    // sets the volume of the music mixer channel
     public void SetMusicVolume(System.Single volume)
     {
         mixer.SetFloat("MusicVol", volume);
     }
+    // sets the volume of the master mixer channel
     public void SetMasterVolume(System.Single volume)
     {
         mixer.SetFloat("MasterVol", volume);
